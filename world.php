@@ -1,11 +1,18 @@
 <?php
 $host = 'localhost';
-$username = 'lab5_user';
+$username = 'root';
 $password = '';
 $dbname = 'world';
 
+$country = $_GET['country'] ?? '';
+//$country = filter_var($country, FILTER_SANITIZE_STRING);
+
 $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-$stmt = $conn->query("SELECT * FROM countries");
+
+//$stmt = $conn->query("SELECT * FROM countries WHERE name LIKE :country");
+
+$stmt = $conn->query("SELECT * FROM countries WHERE name LIKE '%$country%'");
+//$stmt->execute();
 
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
